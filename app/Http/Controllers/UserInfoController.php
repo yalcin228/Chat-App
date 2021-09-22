@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\AddFriend;
 use Session;
+use Illuminate\Support\Facades\DB;
 class UserInfoController extends Controller
 {
     public function index($id){
@@ -24,7 +25,13 @@ class UserInfoController extends Controller
 
         $addfriend->save();
 
-        return back()->with('addfr','Dostluq isteyi yollandi');
+        return view('user_info')->with('addfr','Dostluq isteyi yollandi');
+    }
+
+    public function deletefriend($id){
+        $delete=DB::table('addfriend')->where('acceptor',$id)->delete();
+
+        return back()->with('delfr','Dostluq isteyi geri cekildi');
     }
 
 }
