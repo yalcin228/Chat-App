@@ -28,3 +28,5 @@ Route::put('/profile_edit',[ProfileController::class,'edit']);
 Route::get('/user-info/{id}',[UserInfoController::class,'index'])->name('user-info.index');
 Route::get('/user-info/addfriend/{id}',[UserInfoController::class,'addfriend'])->name('user-info.addfriend');
 Route::get('/user-info/deletefriend/{id}',[UserInfoController::class,'deletefriend'])->name('user-info.delete');
+Route::get('add/{id}',[UserInfoController::class,'addFriend'])->name('add');
+Route::get('delete/{id}',[UserInfoController::class,'deleteRequest'])->name('delete');

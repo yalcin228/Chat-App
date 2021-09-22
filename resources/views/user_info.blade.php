@@ -21,14 +21,12 @@
       @else
           Qeyd edilmeyib
       @endif </p>
-
    
-        <a href="{{url('/user-info/deletefriend'.'/'.$users->id)}}" class="btn btn-danger text-white">Dostlugu sil</a>          
-        
-      
-      
-        <a href="{{url('/user-info/addfriend'.'/'.$users->id)}}" class="btn btn-success text-white">Dostluq yolla</a>          
-
+      @if(!$status)
+        <a href="{{route('add', $users->id)}}" class="btn btn-success text-white">Dostluq yolla</a>
+      @else
+        <a href="{{route('delete', $users->id)}}" class="btn btn-danger text-white">Sorgunu sil</a>
+      @endif
     </div>
   </div>
 @endsection
