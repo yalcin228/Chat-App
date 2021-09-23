@@ -58,9 +58,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function friends() :HasOne
-    {
-        return $this->HasOne(AddFriend::class);
-    }
-
+    
 }

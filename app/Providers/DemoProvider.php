@@ -4,29 +4,32 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Event;
+use App\View\Composers\ShareComposer;
+use App\Models\User;
 
 
-class AppServiceProvider extends ServiceProvider
+class DemoProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register services.
      *
      * @return void
      */
     public function register()
     {
-        //
+
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      *
      * @return void
      */
     public function boot()
     {
-      
+
+        //View::composer('layouts.app', ShareComposer::class);
+        
+
     }
 }

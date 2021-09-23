@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Message;
+use App\Models\AddFriend;
 
 class HomeController extends Controller
 {
@@ -23,15 +24,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+   
+
     public function index()
     {
         
         $user=User::all();
         $message=Message::orderBy('created_at','ASC')->with('getUser')->get();
         
-        
         return view('home',compact('message'))->with('user',$user);
     }
+    
     public function add_message(Request $request){
        $mesaj=new Message();
        

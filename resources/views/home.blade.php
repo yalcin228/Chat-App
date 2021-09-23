@@ -75,12 +75,6 @@
                  
              @endif
         
-         
-
-        
-
-  
-         
 
         @endforeach
          
@@ -99,32 +93,38 @@
     </div>
 </div> 
 
- 
-{{-- <script>
+
+
+
+  {{-- <script>
+
+    $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+        }
+      });
+
     $(document).ready(function(){
         $('#add_message').submit(function(e){
           e.preventDefault();
 
           let message=$('#message').val();
+         
 
-          $.ajax({
-            url: "{{route('send_message')}}",
-            type: "POST",
-            data: {message:message},
+         $.ajax({
+            url: {{route('home.message')}},
+            mehod: 'POST',
+            data: {'message':message},
 
-            success:function(response){
-              if(response){
-                $('#ajax').append(
-                 
-               
-                )
-              }
-            }
-          });
+           success:function(response){
+             if(response)
+           }
+
+         })
         });
     })
     
-</script> --}}
+</script>  --}}
 <!--
 <div class="container">
     <div class="row justify-content-center">

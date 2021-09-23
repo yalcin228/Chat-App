@@ -13,7 +13,9 @@ class UserInfoController extends Controller
 {
     public function index($id){
         $users=User::find($id);
-        $userStatus = AddFriend::where('to_user', $id)->get();
+        
+        $userStatus = AddFriend::where('to_user', $id)->where('user_id',auth()->user()->id)->get();
+       
         $status = false;
         if(count($userStatus)) {
             $status = true;
@@ -28,7 +30,6 @@ class UserInfoController extends Controller
     public function addFriend($id)
     {
         $user_id = auth()->user()->id;
-        $friendRequests = auth()->user()->friends()->get();
 
         $data = [
             'user_id' => intval($user_id),
@@ -42,7 +43,7 @@ class UserInfoController extends Controller
     }
 
     public function deletefriend($id){
-        $delete=DB::table('addfriend')->where('acceptor',$id)->delete();
+        $delete=DB::table('addfriend')->where('to_user',$id)->delete();
 
         return back()->with('delfr','Dostluq isteyi geri cekildi');
 
