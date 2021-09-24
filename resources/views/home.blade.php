@@ -62,15 +62,17 @@
                 </div>
                 
              @else
-    
+                
+             
                <!-- Reciever Message-->
                <div class="media w-50 ml-auto mb-3">
-                <div class="media-body">
-                  <div class="bg-primary rounded py-2 px-3 mb-2">
+                <div class="media-body" id="tekrar">
+                  {{-- <div class="bg-primary rounded py-2 px-3 mb-2">
                     <p class="text-small mb-0 text-white">{{$item->message}}</p>
                   </div>
-                  <p class="small text-muted">{{$item->created_at->format('H:i | M d')}}</p>
+                  <p class="small text-muted">{{$item->created_at->format('H:i | M d')}}</p> --}}
                 </div>
+               
               </div>
                  
              @endif
@@ -79,12 +81,11 @@
         @endforeach
          
         <!-- Typing area -->
-        <form  method="POST" action="" id="add_message" class="bg-light">
-          @csrf
+        <form   id="add_message" class="bg-light">
           <div class="input-group">
             <input type="text" id="message" name="message" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light">
             <div class="input-group-append">
-              <button id="button-addon2" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
+              <button id="button-addon2"  class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
             </div>
           </div>
         </form>
@@ -96,35 +97,53 @@
 
 
 
-  {{-- <script>
+  <script>
 
-    $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
-        }
-      });
+
+
+
+     $.ajaxSetup({
+         headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+         }
+       });
 
     $(document).ready(function(){
         $('#add_message').submit(function(e){
           e.preventDefault();
 
           let message=$('#message').val();
-         
+          let data={
+            '_token':$('meta[name=csrf-token]').attr('content'),
+            message
+          };
+          
 
          $.ajax({
-            url: {{route('home.message')}},
-            mehod: 'POST',
-            data: {'message':message},
+                type:"POST",
+                dataType: "json",
+                url:"{{route('add-message')}}",
+                data: data,
 
-           success:function(response){
-             if(response)
-           }
+                success:function(response){
+                 var data='';
+                 
+                 $.each(response,function(key,value){
+                   
+                    data=data+"<div class='bg-primary rounded py-2 px-3 mb-2'>"
+                    data=data+"<p class='text-small mb-0 text-white'>"+value.message+"</p>"
+                    data=data+"</div>"
+                    data=data+"<p class='small text-muted'>"+value.created_at+"</p>"
+                 })
+                 $('#tekrar').html(data);
+                }
+           
 
-         })
+         });
         });
     })
     
-</script>  --}}
+</script> 
 <!--
 <div class="container">
     <div class="row justify-content-center">

@@ -35,16 +35,22 @@ class HomeController extends Controller
         return view('home',compact('message'))->with('user',$user);
     }
     
-    public function add_message(Request $request){
-       $mesaj=new Message();
+    // public function add_message(Request $request){
+    //    $mesaj=new Message();
        
-       $id=auth()->user()->id;
-       $mesaj->user_id = $id;
-       $mesaj->message = $request->message;
-       $mesaj->save();
+    //    $id=auth()->user()->id;
+    //    $mesaj->user_id = $id;
+    //    $mesaj->message = $request->message;
+    //    $mesaj->save();
 
-       return redirect()->route('home');
+    //    return redirect()->route('home');
 
+    // }
+    public function addMessage(Request $request){
+        
+        $message=auth()->user()->messages()->create($request->all());
+        
+        return response()->json(['success' => $message], 200);
     }
 
 }

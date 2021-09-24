@@ -23,7 +23,7 @@ Auth::routes();
 
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::post('/home',[HomeController::class, 'add_message']);
+Route::post('/home',[HomeController::class, 'add_message'])->name('home.message');
 Route::get('/profile_edit',[ProfileController::class,'index'])->name('profile.index');
 Route::put('/profile_edit',[ProfileController::class,'edit']);
 Route::get('/user-info/{id}',[UserInfoController::class,'index'])->name('user-info.index');
@@ -31,4 +31,6 @@ Route::get('/user-info/addfriend/{id}',[UserInfoController::class,'addfriend'])-
 Route::get('/user-info/deletefriend/{id}',[UserInfoController::class,'deletefriend'])->name('user-info.delete');
 Route::get('add/{id}',[UserInfoController::class,'addFriend'])->name('add');
 Route::get('delete/{id}',[UserInfoController::class,'deletefriend'])->name('delete');
+
+Route::post('add-mesage', [HomeController::class,'addMessage'])->name('add-message');
 
