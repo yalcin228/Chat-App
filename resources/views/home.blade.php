@@ -44,7 +44,7 @@
         </div>
       </div>
       <!-- Chat Box-->
-      <div class="col-7 px-0">
+      <div class="message-container col-7 px-0">
         <div class="px-4 py-5 chat-box bg-white" id="ajax" style="height: 510px;overflow-y: auto;">
          
         @foreach ($message as $item)
@@ -54,7 +54,7 @@
                 <div class="media w-50 mb-3"><img src="{{asset('storage').'/profile/'.$item->getUser->image}}" alt="{{$item->getUser->name}}" width="50" class="rounded-circle">
                   <div class="media-body ml-3">
                     <div class="bg-light rounded py-2 px-3 mb-2" id="ajax_message">
-                      <h5>{{$item->getUser->name}} {{$item->getUser->surname}}</h4>
+                      <h5>{{$item->getUser->name}} {{$item->getUser->surname}}</h5>
                         <p class="text-small mb-0 text-muted">{{$item->message}}</p>
                   </div>
                   <p class="small text-muted">{{$item->created_at->format('H:i | M d')}}</p>
@@ -67,10 +67,10 @@
                <!-- Reciever Message-->
                <div class="media w-50 ml-auto mb-3">
                 <div class="media-body" id="tekrar">
-                  {{-- <div class="bg-primary rounded py-2 px-3 mb-2">
+                  <div class="bg-primary rounded py-2 px-3 mb-2">
                     <p class="text-small mb-0 text-white">{{$item->message}}</p>
                   </div>
-                  <p class="small text-muted">{{$item->created_at->format('H:i | M d')}}</p> --}}
+                  <p class="small text-muted">{{$item->created_at->format('H:i | M d')}}</p>
                 </div>
                
               </div>
@@ -80,17 +80,16 @@
 
         @endforeach
          
-        <!-- Typing area -->
-        <form   id="add_message" class="bg-light">
-          <div class="input-group">
-            <input type="text" id="message" name="message" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light">
-            <div class="input-group-append">
-              <button id="button-addon2"  class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
-            </div>
-          </div>
-        </form>
-  
       </div>
+        <!-- Typing area -->
+      <form   id="add_message" class="bg-light">
+        <div class="input-group">
+          <input type="text" id="message" name="message" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light">
+          <div class="input-group-append">
+            <button id="button-addon2"  class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </form>
     </div>
 </div> 
 
@@ -125,23 +124,40 @@
                 url:"{{route('add-message')}}",
                 data: data,
 
-                success:function(response){
-                 var data='';
-                 
-                 $.each(response,function(key,value){
-                   
-                    data=data+"<div class='bg-primary rounded py-2 px-3 mb-2'>"
-                    data=data+"<p class='text-small mb-0 text-white'>"+value.message+"</p>"
-                    data=data+"</div>"
-                    data=data+"<p class='small text-muted'>"+value.created_at+"</p>"
-                 })
-                 $('#tekrar').html(data);
-                }
-           
+                success:function(response){              
+                    $.each(response,function(key,value){
 
-         });
+                      $('#ajax').append("<div class='media w-50 ml-auto mb-3'><div class='media-body' id='tekrar'><div class='bg-primary rounded py-2 px-3 mb-2'><p class='text-small mb-0 text-white'>"+value.message+"</p></div><p class='small text-muted'>"+value.created_at+"</p></div></div>");                     
+                      scroolBottom();
+                      resetForm();
+                    })   
+                                  
+                }
+          });
+         
         });
+        
+        
     })
+
+
+    
+function scroolBottom(){
+  $('#ajax').animate({scrollTop:1000000},510);
+}
+
+function resetForm() 
+{
+	$('#add_message')[0].reset();
+}
+
+$(document).ready(function(){
+  scroolBottom();
+})
+
+    
+
+   
     
 </script> 
 <!--
