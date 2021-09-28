@@ -11,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use \App\Models\Message;
-use \App\Models\AddFriend;
+use \App\Models\Friend;
 
 
 class User extends Authenticatable
@@ -32,12 +32,6 @@ class User extends Authenticatable
         'image'
 
     ];
-
-
-    public function getMesaj(){
-        return $this->hasMany('App\Models\Message','user_id','id');
-    }
-
 
     /**
      * The attributes that should be hidden for serialization.
@@ -60,6 +54,10 @@ class User extends Authenticatable
 
     public function messages(){
         return $this->hasMany('App\Models\Message');
+    }
+
+    public function friends(){
+        return $this->hasMany(Friend::class, 'from_id');
     }
     
 }

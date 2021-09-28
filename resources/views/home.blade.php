@@ -160,41 +160,5 @@ $(document).ready(function(){
    
     
 </script> 
-<!--
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <div class="row ">
-                        <div class="col-md-8">salam Men yalcin</div>
-                        <div class="col-md-12 d-flex justify-content-end mb-3 ">Salam mende yalcin</div>
-                        <div class="col-md-12">
-                            <div class="input-group">
-                                <input type="text" class="form-control">
-                                <div class="input-group-append">
-                                  <button class="btn btn-success" type="button">Gonder</button>
-                                </div>
-                              </div>
-                        </div>
-                    </div>
-                   
-                    
-                    
-                </div>           
-            </div>
-
-           
-        </div>
-    </div>
-</div>
--->
 @endsection

@@ -6,16 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\User;
 
-class AddFriend extends Model
+class Friend extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'to_user', 'status'];
-    protected $table="addfriend";
-    protected $primaryKey = "id";
+    protected $fillable = ['from_id', 'to_id', 'status'];
     protected $guarded=[];
 
-  
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'from_id', 'id');
+    }
 
 }

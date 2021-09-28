@@ -5,48 +5,44 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddFriendRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\AddFriend;
+use App\Models\Friend;
 use Session;
-use Illuminate\Support\Facades\DB;
 
 class UserInfoController extends Controller
 {
     public function index($id){
-        $users=User::find($id);
+        $user = User::find($id);
         
-        $userStatus = AddFriend::where('to_user', $id)->where('user_id',auth()->user()->id)->get();
-       
-        $status = false;
-        if(count($userStatus)) {
-            $status = true;
-        }
-        return view('user_info',compact('users', 'status'));
+        $isFriend = auth()->user()->friends->pluck('to_id')->contains($id);
+        return view('user_info',compact('user','isFriend'));
     }
     /**
      * Update the specified resource in storage.
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function addFriend($id)
+    public function add_friend($to_id)
     {
-        $user_id = auth()->user()->id;
-
-        $data = [
-            'user_id' => intval($user_id),
-            'to_user' =>  intval($id),
+        auth()->user()->friends()->create([
+            'to_id' =>  $to_id,
             'status' => 0
-        ];
-
-        AddFriend::create($data);
-        return back()->with('addfr','Dostluq isteyi yollandi');
-
+        ]);
+           
+        return back()->with('action_status','Dostluq istəyi yollandı');
     }
 
-    public function deletefriend($id){
-        $delete=DB::table('addfriend')->where('to_user',$id)->delete();
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function destroy ($id)
+    {   
+        $auth_id=auth()->user()->id;
 
-        return back()->with('delfr','Dostluq isteyi geri cekildi');
-
+        Friend::where('to_id',$id)->where('from_id',$auth_id)->delete();
+     
+        return back()->with('action_status','Dostluq istəyi geri çəkildi');
     }
 
 

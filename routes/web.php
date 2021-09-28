@@ -29,8 +29,9 @@ Route::put('/profile_edit',[ProfileController::class,'edit']);
 Route::get('/user-info/{id}',[UserInfoController::class,'index'])->name('user-info.index');
 Route::get('/user-info/addfriend/{id}',[UserInfoController::class,'addfriend'])->name('user-info.addfriend');
 Route::get('/user-info/deletefriend/{id}',[UserInfoController::class,'deletefriend'])->name('user-info.delete');
-Route::get('add/{id}',[UserInfoController::class,'addFriend'])->name('add');
-Route::get('delete/{id}',[UserInfoController::class,'deletefriend'])->name('delete');
+Route::get('add/{to_id}',[UserInfoController::class,'add_friend'])->name('add');
+Route::get('delete/{friend}',[UserInfoController::class,'destroy'])->name('delete');
+Route::get('admit/{friend}',[UserInfoController::class,'admit'])->name('admit');
 
 Route::post('add-mesage', [HomeController::class,'addMessage'])->name('add-message');
 

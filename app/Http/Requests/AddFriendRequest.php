@@ -25,7 +25,7 @@ class AddFriendRequest extends FormRequest
     {
         return [
             'user_id' => 'required',
-            'to_user' => 'required|unique:add_friend, to_user',
+            'to_user' => 'required|unique:from_id, to_id',
             'status' => 'required',
         ];
     }
