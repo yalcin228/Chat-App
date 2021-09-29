@@ -64,23 +64,30 @@
                                 </li>
                             @endif
                         @else
-                        @php
-                            $auth_id = auth()->id();
-                            $friends = App\Models\Friend::where('to_id', $auth_id)->get();
-                        @endphp
+                        
+                        @php($friendRequests = friendRequests())
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     Dostluq isteyi
-                                <span style="font-size:0.6rem;font-weight:300;padding:2px 4px;" class="badge badge-danger navbar-badge">2</span>
+                                    @if ($friendRequests->count() != 0)
+                                    <span style="font-size:0.6rem;font-weight:300;padding:2px 4px;" class="badge badge-danger navbar-badge">{{$friendRequests->count()}}</span>
+                                   
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        @foreach ($friendRequests as $friendRequest)
+                                                
+                                            <a class="dropdown-item" href="{{route('user-info.index', $friendRequest->from_id)}}">{{$friendRequest->user->name}} {{$friendRequest->user->surname}}</a>
+                                                
+                                        @endforeach
+                                                                       
+                                    </div>
+                                    @else
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <p class="pl-2">Dostluq isteyi yoxdur</p>
+                                    </div>
+
+                                    @endif
 
                                 </a>
-                                @if ($friends)
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        @foreach ($friends as $item)
-                                            <a class="dropdown-item" href="{{route('user-info.index', $item->user->id)}}">Friend request from {{$item->user->name}}</a>
-                                        @endforeach
-                                    </div>
-                                @endif
                                 
                             </li>
 

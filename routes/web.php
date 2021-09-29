@@ -31,7 +31,6 @@ Route::get('/user-info/addfriend/{id}',[UserInfoController::class,'addfriend'])-
 Route::get('/user-info/deletefriend/{id}',[UserInfoController::class,'deletefriend'])->name('user-info.delete');
 Route::get('add/{to_id}',[UserInfoController::class,'add_friend'])->name('add');
 Route::get('delete/{friend}',[UserInfoController::class,'destroy'])->name('delete');
-Route::get('admit/{friend}',[UserInfoController::class,'admit'])->name('admit');
 
 Route::post('add-mesage', [HomeController::class,'addMessage'])->name('add-message');
 

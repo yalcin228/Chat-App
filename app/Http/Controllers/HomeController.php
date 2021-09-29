@@ -28,7 +28,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        
+
         $user=User::all();
         $message=Message::orderBy('created_at','ASC')->with('getUser')->get();
         

@@ -18,7 +18,8 @@ class Friend extends Model
     
     public function user()
     {
-        return $this->belongsTo(User::class, 'from_id', 'id');
+        return $this->belongsTo(User::class,'from_id','id');
     }
+   
 
 }

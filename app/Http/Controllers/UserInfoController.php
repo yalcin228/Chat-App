@@ -11,6 +11,7 @@ use Session;
 class UserInfoController extends Controller
 {
     public function index($id){
+         
         $user = User::find($id);
         
         $isFriend = auth()->user()->friends->pluck('to_id')->contains($id);
@@ -23,12 +24,30 @@ class UserInfoController extends Controller
      */
     public function add_friend($to_id)
     {
-        auth()->user()->friends()->create([
-            'to_id' =>  $to_id,
-            'status' => 0
-        ]);
-           
-        return back()->with('action_status','Dostluq istəyi yollandı');
+        
+        
+        $from_id = auth()->user()->id;
+        $check = Friend::where([
+            'from_id' => $from_id,
+            'to_id'=> $to_id
+        ])->orWhere([
+            'from_id' => $to_id,
+            'to_id'=> $from_id
+        ])->first();
+            
+        if(!$check){
+            auth()->user()->friends()->create([
+                'to_id' =>  $to_id,
+                'status' => 0
+            ]);
+               
+            return back()->with('action_status','Dostluq istəyi yollandı');
+        }
+        else{
+            dd('Mesaj yollanib');
+        }
+            
+        
     }
 
     /**
@@ -44,6 +63,7 @@ class UserInfoController extends Controller
      
         return back()->with('action_status','Dostluq istəyi geri çəkildi');
     }
+
 
 
 }

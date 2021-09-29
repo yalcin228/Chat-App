@@ -59,5 +59,9 @@ class User extends Authenticatable
     public function friends(){
         return $this->hasMany(Friend::class, 'from_id');
     }
-    
+
+    public function friendRequests(){
+        return $this->hasMany(Friend::class, 'to_id')->where('status', false)->with('user');
+    }
+   
 }

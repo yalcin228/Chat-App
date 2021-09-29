@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\View\Composers\ShareComposer;
 use App\Models\User;
+use Auth;
 
 
 class DemoProvider extends ServiceProvider
