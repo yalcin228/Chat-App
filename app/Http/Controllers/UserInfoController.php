@@ -7,14 +7,16 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Friend;
 use Session;
+use Illuminate\Support\Facades\DB;
 
 class UserInfoController extends Controller
 {
     public function index($id){
+        
          
         $user = User::find($id);
         
-        $isFriend = auth()->user()->friends->pluck('to_id')->contains($id);
+        $isFriend = user()->friends->pluck('to_id')->contains($id);
         return view('user_info',compact('user','isFriend'));
     }
     /**
@@ -24,19 +26,21 @@ class UserInfoController extends Controller
      */
     public function add_friend($to_id)
     {
+        $from_id = user()->id;
         
-        
-        $from_id = auth()->user()->id;
         $check = Friend::where([
             'from_id' => $from_id,
             'to_id'=> $to_id
-        ])->orWhere([
-            'from_id' => $to_id,
-            'to_id'=> $from_id
-        ])->first();
+        ])->orWhere(function($query) use($from_id, $to_id){
+            return $query->where([
+                'from_id' => $to_id,
+                'to_id'=> $from_id
+            ]);
+        })->first();
+                  
             
         if(!$check){
-            auth()->user()->friends()->create([
+            user()->friends()->create([
                 'to_id' =>  $to_id,
                 'status' => 0
             ]);
@@ -45,9 +49,7 @@ class UserInfoController extends Controller
         }
         else{
             dd('Mesaj yollanib');
-        }
-            
-        
+        }                    
     }
 
     /**
@@ -57,7 +59,7 @@ class UserInfoController extends Controller
     
     public function destroy ($id)
     {   
-        $auth_id=auth()->user()->id;
+        $auth_id=user()->id;
 
         Friend::where('to_id',$id)->where('from_id',$auth_id)->delete();
      
