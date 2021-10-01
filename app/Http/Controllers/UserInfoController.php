@@ -12,12 +12,13 @@ use Illuminate\Support\Facades\DB;
 class UserInfoController extends Controller
 {
     public function index($id){
-        
          
         $user = User::find($id);
         
+        $check_friend=user()->friends->where('status',1)->first();
+        
         $isFriend = user()->friends->pluck('to_id')->contains($id);
-        return view('user_info',compact('user','isFriend'));
+        return view('user_info',compact('user','isFriend','check_friend'));
     }
     /**
      * Update the specified resource in storage.

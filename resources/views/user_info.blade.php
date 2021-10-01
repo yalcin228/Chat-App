@@ -11,17 +11,27 @@
     <img class="card-img-top rounded-circle" src="{{asset('storage').'/profile/'.$user->image}}" style="width: 150px!important;height:150px;margin:auto;"  alt="Card image cap">
     <div class="card-body">
       <h5 class="card-title">{{$user->name}}&nbsp;&nbsp;{{$user->surname}}</h5>
-      <p class="card-text">YAS:&nbsp;@if ($user->age)
-        {{$user->age}}
-      @else
+      <p class="card-text">YAS:&nbsp;
+        @if ($user->age)
+          {{$user->age}}
+        @else
           Qeyd edilmeyib
-      @endif </p>
-   
-      @if(!$isFriend)
-        <a href="{{route('add', $user->id)}}" class="btn btn-success text-white">Dostluq yolla</a>
+        @endif 
+      </p>
+      
+      @if ($check_friend)
+          <p style="text-align: center;font-weight:800;">Dostluğunuz onaylanıb.<a href="{{route('show_my_friends.index')}}"><b>Dostluqlarınız</b></a> siyahısına baxa bilər və özəl olaraq mesajlaşa bilərsiniz.</p>
       @else
-        <a href="{{route('delete', $user->id)}}" class="btn btn-danger text-white">Sorgunu sil</a>
+          @if(!$isFriend)
+            <a href="{{route('add', $user->id)}}" class="btn btn-success text-white">Dostluq yolla</a>
+          @else
+            <a href="{{route('delete', $user->id)}}" class="btn btn-danger text-white">Sorgunu sil</a>
+          @endif
       @endif
+         
+      
+     
+
     </div>
   </div>
 @endsection

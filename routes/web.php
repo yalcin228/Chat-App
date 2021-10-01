@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserInfoController;
+use App\Http\Controllers\CheckRequestController;
+use App\Http\Controllers\MyFriendsController;
+use App\Http\Controllers\PersonalMessageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +34,8 @@ Route::get('/user-info/addfriend/{id}',[UserInfoController::class,'addfriend'])-
 Route::get('/user-info/deletefriend/{id}',[UserInfoController::class,'deletefriend'])->name('user-info.delete');
 Route::get('add/{to_id}',[UserInfoController::class,'add_friend'])->name('add');
 Route::get('delete/{friend}',[UserInfoController::class,'destroy'])->name('delete');
-
 Route::post('add-mesage', [HomeController::class,'addMessage'])->name('add-message');
 
+Route::resource('check-friend', CheckRequestController::class)->only(['edit','update','destroy']);
+Route::resource('show_my_friends', MyFriendsController::class)->only(['index']);
+Route::resource('personal_message', PersonalMessageController::class);

@@ -20,6 +20,10 @@ class Friend extends Model
     {
         return $this->belongsTo(User::class,'from_id','id');
     }
+    public function user_to()
+    {
+        return $this->belongsTo(User::class,'to_id','id');
+    }
    
 
 }

@@ -75,7 +75,7 @@
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         @foreach ($friendRequests as $friendRequest)
                                                 
-                                            <a class="dropdown-item" href="{{route('user-info.index', $friendRequest->from_id)}}">{{$friendRequest->user->name}} {{$friendRequest->user->surname}}</a>
+                                            <a class="dropdown-item" href="{{route('check-friend.edit', $friendRequest->from_id)}}">{{$friendRequest->user->name}} {{$friendRequest->user->surname}}</a>
                                                 
                                         @endforeach
                                                                        
@@ -101,6 +101,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
                                     <a class="dropdown-item" href="{{route('home')}}">Ana Sehife</a>
+                                    <a class="dropdown-item" href="{{route('show_my_friends.index')}}">Dostlarını Gör</a>
                                     <a class="dropdown-item" href="{{route('profile.index')}}">Profile Edit</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
