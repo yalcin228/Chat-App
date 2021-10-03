@@ -15,7 +15,10 @@ class MyFriendsController extends Controller
     public function index()
     {
         
-        $my_friends=Friend::where('status',1)->where('from_id',user()->id)->orWhere('to_id',user()->id)->get();
+        $my_friends=Friend::where('status',1)
+                          ->where('from_id',user()->id)
+                          ->orWhere('to_id',user()->id)
+                          ->get();
        
         return view('my_friends_show',compact('my_friends'));
     }

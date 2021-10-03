@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Message;
 use App\Models\Friend;
+use App\Requests\AddMessageRequest;
 
 class HomeController extends Controller
 {
@@ -28,18 +29,17 @@ class HomeController extends Controller
 
     public function index()
     {
-
-        $user=User::all();
-        $message=Message::orderBy('created_at','ASC')->with('getUser')->get();
+        $users=User::all();
+        $messages=Message::orderBy('created_at','ASC')->with('getUser')->get();
         
-        return view('home',compact('message'))->with('user',$user);
+        return view('home',compact('messages','users'));
     }
     
-    public function addMessage(Request $request){
+    public function add_message(Request $request)
+    {      
+        $message=user()->messages()->create($request->all());
         
-        $message=auth()->user()->messages()->create($request->all());
-        
-        return response()->json(['success' => $message], 200);
+        return response()->json(['success' => $message], 200);   
     }
 
 }

@@ -18,7 +18,7 @@ class ProfileController extends Controller
     public function edit(ProfileImageRequest $request){        
 
             $id=Auth::user()->id;
-
+           
             if ($request->validated()) {
                
                 if($request->age){
@@ -26,17 +26,12 @@ class ProfileController extends Controller
                         "age"=>$request->age
                     ]);
                 }
-                if($request->file('image')){
+                if($request->file('image'))
+                {
                     $update=User::find($id);
-                    $file=$request->file('image');
-                
-                    $extension=$file->getClientOriginalExtension();
-                    $fullName=$file->getClientOriginalName();
-                    $explode=explode('.',$fullName);
-                    $newName=rand(1000,99999).".".$explode[1];
-                    Storage::putFileAs('public/profile',$file,$newName);
-                    $update->image=$newName;
-                    $update->save();
+                    $image_name=$request->file('image')->store('profile', ['disk' => 'public']);
+                     $update->image=$image_name;
+                     $update->save();
                 }
                 $request->session()->flash('success', 'Yenilenme islemi ugurla edildi');
                 return redirect()->route('home');

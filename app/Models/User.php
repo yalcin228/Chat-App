@@ -64,4 +64,5 @@ class User extends Authenticatable
         return $this->hasMany(Friend::class, 'to_id')->where('status', false)->with('user');
     }
    
+   
 }

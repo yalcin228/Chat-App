@@ -102,11 +102,11 @@
                                     
                                     <a class="dropdown-item" href="{{route('home')}}">Ana Sehife</a>
                                     <a class="dropdown-item" href="{{route('show_my_friends.index')}}">Dostlarını Gör</a>
-                                    <a class="dropdown-item" href="{{route('profile.index')}}">Profile Edit</a>
+                                    <a class="dropdown-item" href="{{route('profile.index')}}">Profil Düzənlə</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Çıxış') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

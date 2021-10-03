@@ -11,7 +11,7 @@
                 
             <div class="col-lg-3 col-md-6">
                 <div class="card m-auto" style="width: 18rem;">
-                    <img src="{{asset('storage').'/profile/'.$item->user_to->image}}" style="height:286px;width:286px" class="card-img-top" alt="...">
+                    <img src="{{asset('storage').'/'.$item->user_to->image}}" style="height:286px;width:286px" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{$item->user_to->name}}&nbsp;{{$item->user_to->surname}}</h5>
                         <p class="card-text">YAS:&nbsp;@if ($item->user_to->age)
@@ -28,7 +28,8 @@
         
             <div class="col-lg-3 col-md-6">
                 <div class="card m-auto" style="width: 18rem;">
-                    <img src="{{asset('storage').'/profile/'.$item->user->image}}" style="height:286px;width:286px" class="card-img-top" alt="...">
+                    
+                    <img src="{{asset('storage').'/'.$item->user->image}}" style="height:286px;width:286px" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{$item->user->name}}&nbsp;{{$item->user->surname}}</h5>
                         <p class="card-text">YAS:&nbsp;@if ($item->user->age)

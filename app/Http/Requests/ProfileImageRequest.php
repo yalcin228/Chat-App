@@ -24,14 +24,16 @@ class ProfileImageRequest extends FormRequest
     public function rules()
     {
         return [
+            'age'=>'numeric',
             'image'=>'mimes:jpg,jpeg,png,svg'
             
         ];
     }
-    public function attributes(){
-        return[
-            'image'=>'Şəkil'
-            
+    public function messages()
+    {
+        return [
+            'age.numeric' => 'Yaş yerinə rəqəm yazılmalıdır',
+            'image.mimes' => 'Şəkil yalnız png,jpeg,jpg,svg formatında ola bilər',
         ];
     }
 }

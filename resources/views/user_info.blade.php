@@ -19,15 +19,13 @@
         @endif 
       </p>
       
-      @if ($check_friend)
-          <p style="text-align: center;font-weight:800;">Dostluğunuz onaylanıb.<a href="{{route('show_my_friends.index')}}"><b>Dostluqlarınız</b></a> siyahısına baxa bilər və özəl olaraq mesajlaşa bilərsiniz.</p>
-      @else
+     
           @if(!$isFriend)
             <a href="{{route('add', $user->id)}}" class="btn btn-success text-white">Dostluq yolla</a>
           @else
             <a href="{{route('delete', $user->id)}}" class="btn btn-danger text-white">Sorgunu sil</a>
           @endif
-      @endif
+      
          
       
      

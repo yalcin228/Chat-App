@@ -19,15 +19,15 @@
 
             <div class="mb-3">
                 <label for="age">Yaş</label>
-                <input type="number" class="form-control" id="age" name="age" value="{{auth()->user()->age}}" >
+                <input type="text" class="form-control" id="age" name="age" value="{{user()->age}}" >
             </div>
             <div class="mb-3">
                 <label for="age">Mövcüd profil şəkli</label><br>
-                <img src="{{asset('storage').'/profile/'.auth()->user()->image}}" style="height: 70px;with:70px;" alt="">
+                <img src="{{asset('storage').'/'.user()->image}}" style="height: 70px;with:70px;" alt="">
             </div>
             <div class="input-group mb-3">
                 <input type="file" name="image" class="form-control" id="inputGroupFile02">
-                <label class="input-group-text" for="inputGroupFile02">Şəkil yenilə</label>
+                <label class="input-group-text" for="inputGroupFile02">Şəkil yüklə</label>
             </div>
         
 

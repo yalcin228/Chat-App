@@ -7,6 +7,14 @@
   @if(Session::has('success'))
     <div class="alert alert-success"> {{ session::get('success') }}</div>
   @endif
+    
+  @if($errors->any())
+    <div class="alert alert-danger">
+        @foreach ($errors->all() as $item)
+            <li>{{$item}}</li>
+        @endforeach
+    </div>
+  @endif
 
  
   
@@ -18,13 +26,13 @@
             <div class="list-group rounded-0">
               
               
-              @foreach ($user as $item)
+              @foreach ($users as $item)
               
-                @if (auth()->user()->id == $item->id)
+                @if (user()->id == $item->id)
                     
                 @else
                 <a href="{{url('/user-info/'.$item->id)}}" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                  <div class="media"><img src="{{asset('storage').'/profile/'.$item->image}}" alt="user" width="50" class="rounded-circle">
+                  <div class="media"><img src="{{asset('storage').'/'.$item->image}}" alt="user" width="50" class="rounded-circle">
                    <div class="media-body ml-4">
                      <div class="d-flex align-items-center justify-content-between mb-1">
                        <h6 class="mb-0" >{{$item->surname }}&nbsp;{{$item->name}}</h6><!--<small class="small font-weight-bold">14 Dec</small>-->
@@ -47,11 +55,11 @@
       <div class="message-container col-7 px-0">
         <div class="px-4 py-5 chat-box bg-white" id="ajax" style="height: 510px;overflow-y: auto;">
          
-        @foreach ($message as $item)
-             @if (auth()->user()->id != $item->user_id)
+        @foreach ($messages as $item)
+             @if (user()->id != $item->user_id)
               
                 <!-- Sender Message-->
-                <div class="media w-50 mb-3"><img src="{{asset('storage').'/profile/'.$item->getUser->image}}" alt="{{$item->getUser->name}}" width="50" class="rounded-circle">
+                <div class="media w-50 mb-3"><img src="{{asset('storage').'/'.$item->getUser->image}}" alt="{{$item->getUser->name}}" width="50" class="rounded-circle">
                   <div class="media-body ml-3">
                     <div class="bg-light rounded py-2 px-3 mb-2" id="ajax_message">
                       <h5>{{$item->getUser->name}} {{$item->getUser->surname}}</h5>
@@ -79,7 +87,8 @@
         
 
         @endforeach
-         
+       
+
       </div>
         <!-- Typing area -->
       <form   id="add_message" class="bg-light">
@@ -142,7 +151,8 @@
 
 
     
-function scroolBottom(){
+function scroolBottom()
+{
   $('#ajax').animate({scrollTop:1000000},510);
 }
 
@@ -155,10 +165,6 @@ $(document).ready(function(){
   scroolBottom();
 })
 
-    
-
-   
-    
 </script> 
 
 @endsection

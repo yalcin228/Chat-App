@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\PersonalMessage;
 
 class PersonalMessageController extends Controller
 {
@@ -47,7 +48,17 @@ class PersonalMessageController extends Controller
     public function show($id)
     {
         $my_friend=User::find($id);
-        return view('personal_message',compact('my_friend'));
+        $personal_message=PersonalMessage::where([
+            'from_id'=>user()->id,
+            'to_id'=>$id
+        ])->orWhere(function($query) use($id){
+            return $query->where([
+                'from_id'=>$id,
+                'to_id'=>user()->id
+            ]);
+        })->with('getUser')->get();
+       
+        return view('personal_message',compact('my_friend','personal_message'));
     }
 
     /**
@@ -70,6 +81,15 @@ class PersonalMessageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+        $personal_message=new PersonalMessage();
+
+        $personal_message->from_id = user()->id;
+        $personal_message->to_id = $id;
+        $personal_message->message = $request->message;
+
+        $personal_message->save();
+        return back();
         
     }
 

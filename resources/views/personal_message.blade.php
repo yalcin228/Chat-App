@@ -39,31 +39,40 @@
       <div class="message-container col-7 px-0">
         <div class="px-4 py-5 chat-box bg-white" id="ajax" style="height: 510px;overflow-y: auto;">
          
-          
-             
-               <!-- Reciever Message-->
-               <div class="media w-50 ml-auto mb-3">
+          @foreach ($personal_message as $item)
+              
+             @if ($item->from_id != user()->id)
+              
+
+            <!-- Sender Message-->
+                <div class="media w-50 mb-3"><img src="{{asset('storage').'/profile/'.$item->getUser->image}}" width="50" class="rounded-circle">
+                  <div class="media-body ml-3">
+                    <div class="bg-light rounded py-2 px-3 mb-2" id="ajax_message">
+                      <h5>{{$item->getUser->name}} &nbsp; {{$item->getUser->surname}}</h5>
+                        <p class="text-small mb-0 text-muted">{{$item->message}}</p>
+                    </div>
+                    <p class="small text-muted">{{$item->created_at->format('H:i | M d')}}</p>
+                  </div>
+                </div>
+
+             @else
+                     <!-- Reciever Message-->
+                  <div class="media w-50 ml-auto mb-3">
                     <div class="media-body" id="tekrar">
                         <div class="bg-primary rounded py-2 px-3 mb-2">
-                             <p class="text-small mb-0 text-white">salam</p>
+                          <p class="text-small mb-0 text-white">{{$item->message}}</p>
                         </div>
-                        <p class="small text-muted">salam</p>
+                          <p class="small text-muted">{{$item->created_at->format('H:i | M d')}}</p>
                     </div>               
-                </div>
+                  </div>
+             @endif
+              
 
 
               
-                <!-- Sender Message-->
-                <div class="media w-50 mb-3"><img src="" width="50" class="rounded-circle">
-                    <div class="media-body ml-3">
-                      <div class="bg-light rounded py-2 px-3 mb-2" id="ajax_message">
-                        <h5>sagol</h5>
-                          <p class="text-small mb-0 text-muted">sagol</p>
-                    </div>
-                    <p class="small text-muted">sagol</p>
-                    </div>
-                </div>
+               
                  
+          @endforeach
            
          
       </div>
@@ -81,5 +90,12 @@
     </div>
 </div> 
 
-
+<script>
+  function scroolBottom(){
+    $('#ajax').animate({scrollTop:1000000},510);
+  }
+  $(document).ready(function(){
+    scroolBottom();
+  });
+</script>
 @endsection

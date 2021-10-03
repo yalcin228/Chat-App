@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddFriendRequest extends FormRequest
+class AddMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class AddFriendRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,9 +24,14 @@ class AddFriendRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
-            'to_user' => 'required|unique:from_id, to_id',
-            'status' => 'required',
+            'message'=>'required|max:255',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'message.required'=>'boş mesaj yollamaq olmaz',
+            'message.max'=>'mesajınız max 255 xarakterdən ibarət ola bilər'
         ];
     }
 }
