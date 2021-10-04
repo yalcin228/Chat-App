@@ -19,4 +19,21 @@ class PersonalMessage extends Model
 	{
 		return $this->belongsTo(User::class,'to_id');
 	}
+
+    public function scopeCheckPersonalMessage($query,$id){
+        return $query->orWhere(function($query) use($id){
+            return $query->where([
+                'from_id'=>$id,
+                'to_id'=>user()->id
+            ]);
+        });
+    }
+
+    public function scopePersonalMessage($query,$id)
+    {
+        return $query->where([
+            'from_id'=>user()->id,
+            'to_id'=>$id
+        ]);
+    }
 }

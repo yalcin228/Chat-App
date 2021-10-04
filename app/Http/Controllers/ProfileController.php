@@ -30,8 +30,8 @@ class ProfileController extends Controller
                 {
                     $update=User::find($id);
                     $image_name=$request->file('image')->store('profile', ['disk' => 'public']);
-                     $update->image=$image_name;
-                     $update->save();
+                    $update->image=$image_name;
+                    $update->save();
                 }
                 $request->session()->flash('success', 'Yenilenme islemi ugurla edildi');
                 return redirect()->route('home');

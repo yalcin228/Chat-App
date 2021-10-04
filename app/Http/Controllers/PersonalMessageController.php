@@ -48,15 +48,7 @@ class PersonalMessageController extends Controller
     public function show($id)
     {
         $my_friend=User::find($id);
-        $personal_message=PersonalMessage::where([
-            'from_id'=>user()->id,
-            'to_id'=>$id
-        ])->orWhere(function($query) use($id){
-            return $query->where([
-                'from_id'=>$id,
-                'to_id'=>user()->id
-            ]);
-        })->with('getUser')->get();
+        $personal_message=PersonalMessage::PersonalMessage($id)->CheckPersonalMessage($id)->with('getUser')->get();
        
         return view('personal_message',compact('my_friend','personal_message'));
     }

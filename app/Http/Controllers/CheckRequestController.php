@@ -74,7 +74,7 @@ class CheckRequestController extends Controller
     {
         $user_id=user()->id;
         
-        Friend::where('from_id',$id)->where('to_id',$user_id)->update([
+        Friend::requestFriend($id)->update([
             'status'=>1
         ]);
 
@@ -91,7 +91,7 @@ class CheckRequestController extends Controller
     public function destroy($id)
     {
         $user_id=user()->id;
-        Friend::where('from_id',$id)->where('to_id',$user_id)->delete();
+        Friend::requestFriend($id)->delete();
 
         return redirect()->route('home');
     }

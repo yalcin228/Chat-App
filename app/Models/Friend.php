@@ -24,6 +24,32 @@ class Friend extends Model
     {
         return $this->belongsTo(User::class,'to_id','id');
     }
+    public function scopeMyFriends($query)
+    {
+        return $query->where('status',1)
+                     ->where('from_id',user()->id)
+                     ->orWhere('to_id',user()->id);
+    }
+    public function scopeRequestFriend($query,$id)
+    {
+        return $query->where('from_id',$id)
+                     ->where('to_id',user()->id);
+    }
+    public function scopeFriendRequest($query,$id)
+    {
+        return $query->where('to_id',$id)->where('from_id',user()->id);
+    }
+    public function scopeCheckFriendRequest($query,$to_id)
+    {
+        $from_id=user()->id;
+        return $query->orWhere(function($query) use($from_id, $to_id){
+            return $query->where([
+                'from_id' => $to_id,
+                'to_id'=> $from_id
+             ]);
+        });
+    }
+    
    
 
 }

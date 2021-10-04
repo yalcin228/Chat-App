@@ -29,17 +29,8 @@ class UserInfoController extends Controller
     {
         $from_id = user()->id;
         
-        $check = Friend::where([
-                                'from_id' => $from_id,
-                                'to_id'=> $to_id
-                     ])->orWhere(function($query) use($from_id, $to_id){
-                                return $query->where([
-                                'from_id' => $to_id,
-                                'to_id'=> $from_id
-                                 ]);
-                    })->first();
-                  
-            
+        $check = Friend::FriendRequest($to_id)->CheckFriendRequest($to_id)->first();
+                           
         if(!$check){
             user()->friends()->create([
                 'to_id' =>  $to_id,
@@ -60,9 +51,8 @@ class UserInfoController extends Controller
     
     public function destroy ($id)
     {   
-        $user_id=user()->id;
-
-        Friend::where('to_id',$id)->where('from_id',$user_id)->delete();
+        
+        Friend::FriendRequest($id)->delete();
      
         return back()->with('action_status','Dostluq istəyi geri çəkildi');
     }
